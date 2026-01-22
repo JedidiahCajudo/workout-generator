@@ -1,6 +1,7 @@
 # Workout Generator
 
-Click the button, get a workout. Don't like it? Click it again.
+Click the button, get a workout.
+Constantly varied rep schemes and couplets.
 
 ![App Screenshot](workoutgeneratorscreenshot.png)
 
