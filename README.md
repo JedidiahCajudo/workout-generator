@@ -8,7 +8,7 @@ Constantly varied rep schemes and couplets.
 # Installation
 
 ```
-git clone https://github.com/JedidiahCajudo/workout-generator.git
+git clone https://github.com/your-username/workout-generator.git
 cd workout-generator
 npm install
 npm run dev
