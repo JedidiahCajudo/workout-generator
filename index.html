@@ -9,13 +9,11 @@
   <meta name="theme-color" content="212529">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="stylesheet" href="/workout-generator/manifest.json">
 
   <link rel="stylesheet" crossorigin href="/workout-generator/assets/index-Cwz2EGxV.css">
 </head>
 <body>
-  <h1>Workout Generator</h1>
-  <button id="generate">new</button>
+  <p>tap anywhere for workout</p>
   <div class="workout" id="workout"></div>
 
   <script>
@@ -124,7 +122,11 @@
       `;
     }
 
-    document.getElementById('generate').addEventListener('click', generateWorkout);
+    generateWorkout();
+    document.addEventListener('click', () => {
+      location.reload();
+    });
+
   </script>
 
   <script>
