@@ -29,7 +29,8 @@ p {
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 12px 24px rgba(0,0,0,0.12);
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 500;
   line-height: 1.7;
   width: fit-content;
   transition: box-shadow 0.3s ease;
