@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Generator</title>
+  <link rel="manifest" href="/assets/manifest-rwE21WQV.json" />
+  <link rel="stylesheet" crossorigin href="/assets/index-Cwz2EGxV.css">
+</head>
+<body>
+  <h1>Workout Generator</h1>
+  <button id="generate">new</button>
+  <div class="workout" id="workout"></div>
+
+  <script>
+    const exercises = [
+      // Vertical Pull
+      { name: 'Wide Pull Up', category: 'vertical pull' },
+      { name: 'Close Grip Pull Up', category: 'vertical pull' },
+      { name: 'Neutral Grip Pull Up', category: 'vertical pull' },
+      { name: 'Toes to Bar', category: 'vertical pull' },
+
+      // Vertical Push
+      { name: 'Thruster', category: 'vertical push' },
+      { name: 'Front Squat', category: 'vertical push' },
+      { name: 'Back Squat', category: 'vertical push' },
+      { name: 'Handstand Pushup', category: 'vertical push' },
+      { name: 'Push Press', category: 'vertical push' },
+      { name: 'Strict Press', category: 'vertical push' },
+
+      // Horizontal Pull
+      { name: 'Barbell Row', category: 'horizontal pull' },
+      { name: 'Clean Pull', category: 'horizontal pull' },
+      { name: 'Power Clean', category: 'horizontal pull' },
+      { name: 'Squat Clean', category: 'horizontal pull' },
+
+      // Horizontal Push
+      { name: 'Bench Press', category: 'horizontal push' },
+      { name: 'Incline Bench Press', category: 'horizontal push' },
+      { name: 'Push-up', category: 'horizontal push' }
+    ];
+
+    let lastCategories = [];
+    let lastRepCount = null;
+
+    const categoryMap = {
+      vertical: ['vertical pull', 'vertical push'],
+      horizontal: ['horizontal pull', 'horizontal push'],
+      push: ['vertical push', 'horizontal push'],
+      pull: ['vertical pull', 'horizontal pull']
+    };
+
+    function getType(cat) {
+      return {
+        orientation: categoryMap.vertical.includes(cat) ? 'vertical' : 'horizontal',
+        motion: categoryMap.push.includes(cat) ? 'push' : 'pull'
+      };
+    }
+
+    function getRepCount() {
+      const options = [4, 6, 8, 10, 12, 16, 20, 24, 30];
+      let rep;
+      do {
+        rep = options[Math.floor(Math.random() * options.length)];
+      } while (rep === lastRepCount);
+      lastRepCount = rep;
+      return rep;
+    }
+
+    function getEligiblePairs() {
+      const pairs = [];
+
+      exercises.forEach(e1 => {
+        const t1 = getType(e1.category);
+
+        exercises.forEach(e2 => {
+          if (e1.name === e2.name) return;
+          const t2 = getType(e2.category);
+
+          // Must be one vertical, one horizontal
+          if (t1.orientation === t2.orientation) return;
+
+          // Must be one push, one pull
+          if (t1.motion === t2.motion) return;
+
+          // Must not repeat any category from last workout
+          if (lastCategories.includes(e1.category) || lastCategories.includes(e2.category)) return;
+
+          pairs.push([e1, e2]);
+        });
+      });
+
+      return pairs;
+    }
+
+    function generateWorkout() {
+      const pairs = getEligiblePairs();
+
+      if (pairs.length === 0) {
+        document.getElementById('workout').innerText = "No valid workouts left.";
+        return;
+      }
+
+      const pair = pairs[Math.floor(Math.random() * pairs.length)];
+      lastCategories = [pair[0].category, pair[1].category];
+
+      const reps1 = getRepCount();
+      let reps2;
+      do {
+        reps2 = getRepCount();
+      } while (reps2 === reps1);
+
+      document.getElementById('workout').innerHTML = `
+        <ul style="list-style: none; padding-left: 0;">
+          <li>${reps1}  ${pair[0].name}</li>
+          <li>${reps2}  ${pair[1].name}</li>
+        </ul>
+      `;
+    }
+
+    document.getElementById('generate').addEventListener('click', generateWorkout);
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.log('Service Worker registration failed:', err));
+    }
+  </script>
+</body>
+</html>
