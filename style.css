@@ -16,28 +16,11 @@ body {
   color: #212529;
 }
 
-h1 {
+p {
   font-weight: 600;
   margin-bottom: 1.5rem;
   font-size: clamp(1.75rem, 5vw, 2.5rem);
-}
-
-button {
-  font-size: clamp(1.1rem, 3vw, 1.25rem);
-  padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
-  background-color: #212529;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 300px;
-}
-
-button:hover {
-  background-color: #343a40;
+  text-align: center;
 }
 
 .workout {
@@ -48,9 +31,9 @@ button:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 12px 24px rgba(0,0,0,0.12);
   font-size: clamp(1rem, 2.5vw, 1.3rem);
   line-height: 1.7;
-  min-width: 320px;
-  max-width: 420px;
+  width: fit-content;
   transition: box-shadow 0.3s ease;
+  text-align: left;
 }
 
 .workout:hover {
